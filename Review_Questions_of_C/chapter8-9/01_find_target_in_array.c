@@ -1,21 +1,30 @@
 #include <stdio.h>
 
-int main(){
-	int arr[] = {3,4,6,7,9,12,16,17};
-	int n = 8;
-	int target = 9;
-	int isTarget = 0;
+int binarySearch(int arr[], int n, int target) {
+    int low = 0, high = n - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
 
-	for(int i=0; i<n; i++){
-		if(arr[i] == target){
-			isTarget = 1;
-			break;
-		}
-	}
-	if(isTarget){
-		printf("Element %d is present in array\n" ,target);
-	}else{
-		printf("Element %d is not present in array\n" ,target);
-	}
-	return 0;
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] < target)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int arr[] = {3, 4, 6, 7, 9, 12, 16, 17};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 6;
+    int result = binarySearch(arr, n, target);
+
+    if (result != -1)
+        printf("Target found at index %d\n", result);
+    else
+        printf("Target not found\n");
+
+    return 0;
 }
